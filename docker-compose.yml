@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    logging:
+      driver: none  # disable logging for zookeeper container
+
+  master1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/bin/master
+    image: myapp/master:latest
+    container_name: master1
+    depends_on:
+      - zookeeper
+
+  master2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/bin/master
+    image: myapp/master:latest
+    container_name: master2
+    depends_on:
+      - zookeeper
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/bin/worker
+    image: myapp/worker:latest
+    container_name: worker

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rpc_gen;
+
+option go_package = "github.com/chiwency/grpc_gen/workshop2;workshop2";
+
+service MapReduceService {
+    rpc SubmitTask (TaskRequest) returns (TaskResponse) {}
+     rpc PerformTask (TaskRequest) returns (TaskResponse) {}  // 用于Worker执行任务
+}
+
+message TaskRequest {
+    string task_id = 1;
+    string message = 2;
+}
+
+message TaskResponse {
+    string message = 1;
+}
